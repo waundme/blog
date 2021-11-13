@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    command: jekyll serve --watch --force_polling --verbose
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/srv/jekyll
+    networks:
+      - nginx-proxy
+      - default
+    environment:
+      - VIRTUAL_HOST=blog.wahrscheinlichkeitundmethode.de
+      - VIRTUAL_PORT=4000
+      - LETSENCRYPT_HOST=blog.wahrscheinlichkeitundmethode.de
+      - LETSENCRYPT_EMAIL=arnejanning@outlook.com
+networks:
+  nginx-proxy:
+    external: true
